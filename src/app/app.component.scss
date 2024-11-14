@@ -1,0 +1,192 @@
+@mixin center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @mixin responsive-font {
+    @media (max-width: 1024px) {
+      font-size: 14px;
+    }
+  }
+  
+  @mixin full-width {
+    width: 100%;
+  }
+  
+  @mixin transition-ease($property, $duration) {
+    transition: $property $duration ease;
+  }
+  
+  @mixin rotate-animation {
+    animation: rotate 1s ease 0s 1 normal forwards;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .container {
+    @include center-flex;
+    min-height: 100vh;
+  
+    @media (max-width: 1024px) {
+      height: auto;
+      @include full-width;
+    }
+  }
+  
+  .reset-button {
+    position: absolute;
+  
+    &:focus {
+      @include rotate-animation;
+    }
+  }
+  
+  .main-card {
+    margin: 5rem;
+    min-height: 80vh;
+    width: 40%;
+    @include transition-ease(height, 0.5s);
+  
+    @media (max-width: 1024px) {
+      margin: 0.5rem;
+      min-height: 95vh;
+      width: 90%;
+    }
+  }
+  
+  mat-card-header {
+    @include center-flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+  
+  .spinner {
+    @include center-flex;
+    align-content: center;
+  }
+  
+  .progress-text {
+    position: absolute;
+    color: white;
+  }
+  
+  .form {
+    @include full-width;
+    @include center-flex;
+  
+    > button {
+      margin-bottom: 1.3rem;
+    }
+  
+    > mat-form-field {
+      width: 80%;
+    }
+  }
+  
+  button {
+    color: #04dbdb;
+  }
+  
+  mat-card-content, .empty-todos {
+    @include full-width;
+    @include center-flex;
+    color: white;
+  }
+  
+  .todos {
+    @include center-flex;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .todo {
+    width: 90%;
+  }
+  
+  .cards-mat {
+    @include center-flex;
+    justify-content: space-between;
+    background-color: #252b2a;
+    @include full-width;
+    flex-direction: row;
+  }
+  
+  .cards-left {
+    @include full-width;
+    color: white;
+    @include center-flex;
+    gap: 0.5rem;
+    @include responsive-font;
+  }
+  
+  .text {
+    @include full-width;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    word-break: break-word;
+    gap: 0.5rem;
+    margin: 0.5rem;
+  }
+  
+  mat-card-actions {
+    @include center-flex;
+    justify-content: space-between;
+  
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+  }
+  
+  .check-button {
+    @include center-flex;
+    color: #04dbdb;
+    margin-left: 0.5rem;
+  }
+  
+  .finished {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .reverse-button {
+    pointer-events: all;
+  }
+  
+  .form-edit {
+    @include full-width;
+    @include center-flex;
+    justify-content: start;
+    gap: 0.5rem;
+  
+    > input {
+      font-size: medium;
+      color: white;
+      min-height: 30px;
+      @include full-width;
+      background-color: transparent;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid white;
+      padding: 0.5rem;
+    }
+  }

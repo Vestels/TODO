@@ -1,0 +1,107 @@
+<div class="container">
+  <mat-card class="main-card">
+    <button mat-icon-button (click)="resetTodos()" class="reset-button">
+      <mat-icon>replay</mat-icon>
+    </button>
+    <mat-card-header>
+      <form class="form">
+        <mat-form-field appearance="outline">
+          <mat-label>What to do...</mat-label>
+          <input
+            matInput
+            #message
+            maxlength="256"
+            name="input"
+            (key.enter)="addTodo()"
+            [(ngModel)]="todoInput.text"
+          />
+        </mat-form-field>
+        <button
+          mat-icon-button
+          (click)="addTodo()"
+          [disabled]="todoInput.text.length < 1"
+        >
+          <mat-icon>checklist</mat-icon>
+        </button>
+      </form>
+      <div class="spinner">
+        <mat-progress-spinner
+          class="progress-spinner"
+          [mode]="mode"
+          [value]="value"
+        >
+        </mat-progress-spinner>
+        <div class="progress-text">
+          {{ finishedTodos }} / <strong>{{ maxTodos }}</strong>
+        </div>
+      </div>
+    </mat-card-header>
+    <div class="empty-todos" *ngIf="todos.length === 0">
+      Try add some todos to the list!
+    </div>
+    <mat-card-content class="todos" [ngClass]="{'finished': todo.finished}" *ngFor="let todo of todos; let i = index">
+      <div #todoElement class="todo">
+        <mat-card class="cards-mat">
+          <span class="cards-left">
+            <button
+              mat-icon-button
+              class="check-button"
+              (click)="finishTodo(todo, todoElement, i)"
+            >
+              <mat-icon *ngIf="!todo.finished">radio_button_unchecked</mat-icon>
+              <mat-icon *ngIf="todo.finished">task_alt</mat-icon>
+            </button>
+            <div class="text" *ngIf="!todo.toggleEdit">{{ todo.text }}</div>
+            <div class="form-edit" *ngIf="todo.toggleEdit">
+              <input
+                class="edit-input"
+                matInput
+                #message
+                maxlength="256"
+                name="input"
+                (keyup.enter)="saveTodo(i)"
+                [(ngModel)]="todo.text"
+              />
+              <button
+                mat-icon-button
+                (click)="saveTodo(i)"
+                [disabled]="todo.text.length < 1"
+              >
+                <mat-icon>save_alt</mat-icon>
+              </button>
+            </div>
+          </span>
+          <mat-card-actions align="end">
+            <button
+              mat-icon-button
+              class="todo-button"
+              style="color: rgb(173, 173, 173)"
+              (click)="editTodo(i)"
+              *ngIf="!todo.finished"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="todo-button"
+              style="color: rgb(202, 60, 60)"
+              (click)="deleteTodo(todo)"
+              *ngIf="!todo.finished"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="reverse-button"
+              style="color: rgb(160, 56, 56)"
+              (click)="reverseTodo(todo, todoElement)"
+              *ngIf="todo.finished"
+            >
+              <mat-icon>replay</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
